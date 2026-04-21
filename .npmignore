@@ -1,0 +1,7 @@
+nodes/
+tsconfig.json
+tsconfig.tsbuildinfo
+.github/
+.vscode/
+*.ts
+!dist/**/*.ts

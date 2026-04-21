@@ -1,0 +1,47 @@
+{
+	"name": "n8n-nodes-openrouter-cache",
+	"version": "0.1.0",
+	"description": "OpenRouter Chat Model with prompt caching support for n8n AI Agent workflows",
+	"license": "MIT",
+	"author": {
+		"name": "Huda",
+		"email": "revoutech@gmail.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/hudahoeda/n8n-nodes-openrouter-cache.git"
+	},
+	"keywords": [
+		"n8n-community-node-package",
+		"openrouter",
+		"prompt-caching",
+		"ai",
+		"langchain"
+	],
+	"scripts": {
+		"build": "n8n-node build",
+		"dev": "n8n-node dev",
+		"lint": "n8n-node lint",
+		"lint:fix": "n8n-node lint --fix",
+		"prepublishOnly": "n8n-node prerelease"
+	},
+	"files": [
+		"dist"
+	],
+	"n8n": {
+		"n8nNodesApiVersion": 1,
+		"nodes": [
+			"dist/nodes/OpenRouterCacheChatModel/OpenRouterCacheChatModel.node.js"
+		]
+	},
+	"dependencies": {
+		"@langchain/openai": "^0.5.0"
+	},
+	"devDependencies": {
+		"@n8n/node-cli": "*",
+		"typescript": "~5.9.0"
+	},
+	"peerDependencies": {
+		"n8n-workflow": "*"
+	}
+}
