@@ -1,10 +1,10 @@
 # n8n-nodes-openrouter-cache
 
-OpenRouter Chat Model node for [n8n](https://n8n.io) with **prompt caching** support. Drop-in replacement for the built-in OpenRouter Chat Model that injects `cache_control` markers to reduce costs up to 90% on Anthropic models.
+OpenRouter Chat Model node for [n8n](https://n8n.io) with **prompt caching** support. Drop-in replacement for the built-in OpenRouter Chat Model that injects `cache_control` markers to reduce costs up to 90% on Anthropic and Gemini models.
 
 ## Features
 
-- **Prompt caching** for Anthropic models via OpenRouter (system message + optional last user message)
+- **Prompt caching** for Anthropic and Gemini models via OpenRouter (system message + optional last user message)
 - **Configurable TTL**: 5-minute default or 1-hour extended cache
 - **Cache breakpoints**: System message only, or system + last user message
 - **Caching enabled by default** — the whole point of this node
@@ -17,14 +17,14 @@ In your n8n instance:
 
 1. Go to **Settings → Community Nodes**
 2. Click **Install**
-3. Enter `n8n-nodes-openrouter-cache`
+3. Enter `n8n-nodes-openrouter-cache-chat-model`
 4. Click **Install**
 
 ## Usage
 
 1. Add the **OpenRouter Cache Chat Model** node to your workflow
 2. Connect it to an **AI Agent** or **AI Chain** node
-3. Select your model (e.g., `anthropic/claude-sonnet-4-20250514`)
+3. Select your model (e.g., `anthropic/claude-sonnet-4-20250514` or `google/gemini-2.5-flash`)
 4. Caching is enabled by default — configure under Options if needed
 
 ### Options
@@ -53,7 +53,7 @@ On the response side, it also fixes empty tool call arguments (a known issue wit
 | Anthropic (Claude) | Explicit — this node adds it | Min 1024-4096 tokens depending on model |
 | OpenAI (GPT) | Automatic | No modification needed, but node won't break anything |
 | DeepSeek | Automatic | Same as OpenAI |
-| Google (Gemini) | Automatic | Same as OpenAI |
+| Google (Gemini 2.5) | Explicit — this node adds it | Min 1,028 tokens (Flash) / 2,048 tokens (Pro). Fixed ~3-5min TTL |
 
 ### Verifying cache hits
 
@@ -70,8 +70,8 @@ npm run build
 
 For local testing, copy `dist/` to your n8n custom nodes directory:
 ```bash
-cp -r dist/ ~/.n8n/custom/node_modules/n8n-nodes-openrouter-cache/dist/
-cp package.json ~/.n8n/custom/node_modules/n8n-nodes-openrouter-cache/
+cp -r dist/ ~/.n8n/custom/node_modules/n8n-nodes-openrouter-cache-chat-model/dist/
+cp package.json ~/.n8n/custom/node_modules/n8n-nodes-openrouter-cache-chat-model/
 ```
 
 ## License

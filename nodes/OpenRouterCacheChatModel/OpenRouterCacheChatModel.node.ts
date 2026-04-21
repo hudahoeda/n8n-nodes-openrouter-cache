@@ -47,7 +47,7 @@ function isOpenAIResponseWithChoices(json: unknown): json is { choices: OpenAICh
 	);
 }
 
-function injectCacheControl(body: ChatRequestBody, config: CacheConfig): ChatRequestBody {
+export function injectCacheControl(body: ChatRequestBody, config: CacheConfig): ChatRequestBody {
 	if (!config.enabled) return body;
 
 	const messages = body.messages;
@@ -89,7 +89,7 @@ function injectCacheControl(body: ChatRequestBody, config: CacheConfig): ChatReq
 	return body;
 }
 
-function fixEmptyToolCallArguments(json: unknown): boolean {
+export function fixEmptyToolCallArguments(json: unknown): boolean {
 	if (!isOpenAIResponseWithChoices(json)) return false;
 
 	const isInvalidArgs = (args: unknown): boolean => typeof args !== 'string' || !args.trim();
@@ -110,7 +110,7 @@ function fixEmptyToolCallArguments(json: unknown): boolean {
 	return true;
 }
 
-function createCachingOpenRouterFetch(
+export function createCachingOpenRouterFetch(
 	baseFetch: typeof globalThis.fetch,
 	cacheConfig: CacheConfig,
 ): typeof globalThis.fetch {
@@ -266,7 +266,7 @@ export class OpenRouterCacheChatModel implements INodeType {
 						type: 'boolean',
 						default: true,
 						description:
-							'Whether to enable prompt caching to reduce costs and latency for repeated system prompts. Works with Anthropic models via OpenRouter. <a href="https://openrouter.ai/docs/guides/best-practices/prompt-caching">Learn more</a>.',
+							'Whether to enable prompt caching to reduce costs and latency for repeated system prompts. Works with Anthropic and Gemini models via OpenRouter. <a href="https://openrouter.ai/docs/guides/best-practices/prompt-caching">Learn more</a>.',
 					},
 					{
 						displayName: 'Cache TTL',
@@ -284,7 +284,7 @@ export class OpenRouterCacheChatModel implements INodeType {
 								name: '1 Hour',
 								value: '1h',
 								description:
-									'Extended cache for long-running sessions. 2x write cost on Anthropic.',
+									'Extended cache for long-running sessions. 2x write cost on Anthropic. Not supported on Gemini (fixed ~3-5min TTL).',
 							},
 						],
 					},
